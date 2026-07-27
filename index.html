@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manan Basheri</title>
+<meta name="description" content="Manan Basheri — financial analysis and the questions that don't fit in a spreadsheet.">
+<meta name="theme-color" content="#0B0A0C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0A0C;
+    --ink:#F3EFE9;
+    --muted:#948E92;
+    --dim:#635D63;
+    --hair:rgba(243,239,233,.11);
+    --hair-soft:rgba(243,239,233,.06);
+    --surface:rgba(243,239,233,.025);
+    --surface-hi:rgba(243,239,233,.045);
+    --accent:#CFA0A6;         /* dusty rose */
+    --accent-soft:rgba(207,160,166,.16);
+    --sp:clamp(1.35rem,5vw,3rem);
+    --ease:cubic-bezier(.22,.68,.28,1);
+    --display:"Bodoni Moda","Didot",Georgia,serif;   /* high-contrast display */
+    --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;  /* readable body */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:clamp(16px,1.15vw,18px);
+    line-height:1.6;
+    padding:var(--sp);
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    /* faint warmth pooled behind the name */
+    background-image:radial-gradient(120% 70% at 50% -6%,rgba(207,160,166,.09),transparent 55%);
+    background-repeat:no-repeat;
+  }
+  .wrap{max-width:56rem;margin:0 auto}
+
+  a{color:inherit}
+  ::selection{background:var(--accent-soft);color:var(--ink)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:3px}
+
+  /* ── hero ───────────────────────────────────────── */
+  header{text-align:center;padding:clamp(3rem,13vh,8.5rem) 0 clamp(2.5rem,7vh,4rem)}
+  .eyebrow{
+    font-size:.8rem;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:600;
+  }
+  h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-optical-sizing:auto;
+    font-size:clamp(2.9rem,10.5vw,7rem);
+    line-height:1.06;
+    letter-spacing:.01em;
+    margin:.34em 0 .32em;
+    color:var(--ink);
+  }
+  .lede{
+    font-size:clamp(1.3rem,2.5vw,1.65rem);
+    line-height:1.48;
+    font-weight:400;
+    color:#DAD4CE;
+    max-width:40ch;
+    margin:0 auto;
+  }
+  .lede .em{
+    color:var(--accent);
+    font-weight:400;
+    box-shadow:inset 0 -.32em 0 var(--accent-soft);
+  }
+
+  /* ── tab bar ─────────────────────────────────────── */
+  .tabs{
+    display:flex;
+    justify-content:center;
+    gap:clamp(1.5rem,5vw,3rem);
+    margin-top:clamp(2.5rem,7vh,4rem);
+  }
+  .tab{
+    position:relative;
+    background:none;
+    border:0;
+    padding:.55rem .1rem;
+    font-family:var(--display);
+    font-size:1.12rem;
+    font-weight:500;
+    letter-spacing:.05em;
+    color:var(--muted);
+    cursor:pointer;
+    transition:color .3s var(--ease);
+  }
+  .tab::after{
+    content:"";
+    position:absolute;
+    left:0;right:0;bottom:-1px;
+    height:1.5px;
+    background:var(--accent);
+    transform:scaleX(0);
+    transform-origin:center;
+    transition:transform .34s var(--ease);
+  }
+  .tab:hover{color:var(--ink)}
+  .tab[aria-selected="true"]{color:var(--ink)}
+  .tab[aria-selected="true"]::after{transform:scaleX(1)}
+
+  .tabline{
+    height:1px;
+    background:var(--hair);
+    max-width:56rem;
+    margin:0 auto clamp(2.5rem,7vh,4.5rem);
+  }
+
+  /* ── panels ──────────────────────────────────────── */
+  .panel{display:none}
+  .panel.is-active{display:block}
+  .panel.is-active > *{animation:rise .55s var(--ease) both}
+
+  /* ── work cards ──────────────────────────────────── */
+  .work{max-width:42rem;margin:0 auto;display:flex;flex-direction:column;gap:1.1rem}
+  .card{
+    position:relative;
+    padding:clamp(1.5rem,4vw,2.3rem);
+    border:1px solid var(--hair);
+    border-radius:14px;
+    background:var(--surface);
+    transition:background .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease);
+  }
+  .card:hover{background:var(--surface-hi);border-color:rgba(207,160,166,.28);transform:translateY(-3px)}
+  .card-top{display:flex;align-items:center;gap:.85rem;flex-wrap:wrap}
+  .num{
+    font-size:.82rem;
+    font-weight:600;
+    letter-spacing:.16em;
+    color:var(--accent);
+  }
+  .card h3{
+    font-family:var(--display);
+    font-size:clamp(1.6rem,3.6vw,2.15rem);
+    font-weight:500;
+    letter-spacing:.01em;
+    line-height:1.15;
+  }
+  .status{
+    margin-left:auto;
+    display:inline-flex;
+    align-items:center;
+    gap:.45rem;
+    font-size:.74rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    border:1px solid var(--hair);
+    border-radius:999px;
+    padding:.28rem .7rem;
+    white-space:nowrap;
+  }
+  .status::before{
+    content:"";
+    width:5px;height:5px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft);
+  }
+  .card p{margin:1.1rem 0 0;color:#CFC9C3;font-weight:400;line-height:1.55;max-width:62ch}
+  .meta{margin-top:1.35rem;display:flex;flex-wrap:wrap;gap:.45rem}
+  .tag{
+    font-size:.9rem;
+    letter-spacing:.03em;
+    color:var(--muted);
+    border:1px solid var(--hair);
+    border-radius:999px;
+    padding:.2rem .75rem;
+    transition:color .3s var(--ease),border-color .3s var(--ease);
+  }
+  .card:hover .tag{border-color:var(--hair-soft)}
+  .out{
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    margin-top:1.55rem;
+    font-size:1.02rem;
+    letter-spacing:.02em;
+    color:var(--accent);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+    padding-bottom:2px;
+    transition:border-color .3s var(--ease),gap .3s var(--ease);
+  }
+  .out .arw{transition:transform .3s var(--ease)}
+  .out:hover{border-color:var(--accent)}
+  .out:hover .arw{transform:translate(3px,-2px)}
+
+  /* ── links panel ─────────────────────────────────── */
+  .links{max-width:30rem;margin:0 auto;display:flex;flex-direction:column}
+  .link{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:1rem;
+    padding:1.25rem .35rem;
+    text-decoration:none;
+    border-top:1px solid var(--hair);
+    transition:padding-left .35s var(--ease);
+  }
+  .link:last-child{border-bottom:1px solid var(--hair)}
+  .link .l-name{
+    font-weight:500;
+    font-size:1.7rem;
+    line-height:1;
+    color:var(--ink);
+    transition:color .3s var(--ease);
+  }
+  .link .l-detail{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+    font-size:1rem;
+    letter-spacing:.01em;
+    color:var(--muted);
+    transition:color .3s var(--ease);
+  }
+  .link .arw{transition:transform .3s var(--ease)}
+  .link:hover{padding-left:.9rem}
+  .link:hover .l-name{color:var(--accent)}
+  .link:hover .l-detail{color:var(--ink)}
+  .link:hover .arw{transform:translate(3px,-2px)}
+
+  /* ── footer ──────────────────────────────────────── */
+  footer{
+    max-width:56rem;
+    margin:clamp(4rem,11vh,7rem) auto 0;
+    padding-top:1.5rem;
+    border-top:1px solid var(--hair);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:.5rem;
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--dim);
+  }
+  footer a{text-decoration:none;transition:color .3s var(--ease)}
+  footer a:hover{color:var(--accent)}
+
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+  /* staggered hero entrance */
+  .reveal{opacity:0;animation:rise .7s var(--ease) forwards}
+  .reveal.d1{animation-delay:.05s}
+  .reveal.d2{animation-delay:.16s}
+  .reveal.d3{animation-delay:.28s}
+  .reveal.d4{animation-delay:.4s}
+
+  @media (max-width:540px){
+    .status{margin-left:0;order:3}
+    .link .l-name{font-size:1.45rem}
+    footer{justify-content:center;text-align:center}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal,.panel.is-active > *{animation:none;opacity:1;transform:none}
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow reveal d1">Accounting &amp; Financial Management · University of Waterloo</p>
+    <h1 class="reveal d2">Manan Basheri</h1>
+    <p class="lede reveal d3">In fieri — a work in progress. I work in <span class="em">financial analysis</span> and the questions that don't fit in a spreadsheet.</p>
+
+    <div class="tabs reveal d4" role="tablist" aria-label="Sections">
+      <button class="tab" id="tab-work" role="tab" aria-controls="panel-work" aria-selected="true">Work</button>
+      <button class="tab" id="tab-links" role="tab" aria-controls="panel-links" aria-selected="false" tabindex="-1">Links</button>
+    </div>
+  </header>
+
+  <div class="tabline reveal d4"></div>
+
+  <!-- ── WORK ─────────────────────────────────────── -->
+  <section class="panel is-active" id="panel-work" role="tabpanel" aria-labelledby="tab-work">
+    <div class="work">
+
+      <article class="card">
+        <div class="card-top">
+          <span class="num">01</span>
+          <h3>Plateau</h3>
+          <span class="status">In progress</span>
+        </div>
+        <p>Fitness apps chart your progress and stop there — when a lift stalls, you get a flat line and no explanation. Plateau reads the training log alongside sleep, stress, and bodyweight, then works out the likely reason the lift stopped moving: not enough stimulus, accumulated fatigue, stale programming, or under-eating. It returns a written diagnosis and a specific change to make, not just a flag.</p>
+        <div class="meta">
+          <span class="tag">Product</span><span class="tag">Rules engine</span><span class="tag">React</span><span class="tag">Python</span>
+        </div>
+        <a class="out" href="https://plateau-dx.onrender.com" target="_blank" rel="noopener">Read the writeup <span class="arw">↗</span></a>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <span class="num">02</span>
+          <h3>Closing Line</h3>
+          <span class="status">In progress</span>
+        </div>
+        <p>Betting markets are supposed to price soccer matches efficiently by the time they close. This project tests where that breaks — whether particular match situations are systematically mispriced relative to the closing odds, after correcting for the bookmaker's margin. Built on historical odds and results, with implied probabilities normalised before anything is compared.</p>
+        <div class="meta">
+          <span class="tag">Data analysis</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Statistics</span>
+        </div>
+        <a class="out" href="https://github.com/mbasheri/closing-line" target="_blank" rel="noopener">Read the writeup <span class="arw">↗</span></a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── LINKS ────────────────────────────────────── -->
+  <section class="panel" id="panel-links" role="tabpanel" aria-labelledby="tab-links" hidden>
+    <div class="links">
+      <a class="link" href="mailto:mbasheri@uwaterloo.ca">
+        <span class="l-name">Email</span>
+        <span class="l-detail">mbasheri@uwaterloo.ca <span class="arw">↗</span></span>
+      </a>
+      <a class="link" href="https://www.linkedin.com/in/mananbasheri" target="_blank" rel="noopener">
+        <span class="l-name">LinkedIn</span>
+        <span class="l-detail">in/mananbasheri <span class="arw">↗</span></span>
+      </a>
+      <a class="link" href="https://github.com/mbasheri" target="_blank" rel="noopener">
+        <span class="l-name">GitHub</span>
+        <span class="l-detail">@mbasheri <span class="arw">↗</span></span>
+      </a>
+      <a class="link" href="resume.pdf" target="_blank" rel="noopener">
+        <span class="l-name">Résumé</span>
+        <span class="l-detail">PDF <span class="arw">↗</span></span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>Toronto, Ontario</span>
+    <span><a href="mailto:mbasheri@uwaterloo.ca">mbasheri@uwaterloo.ca</a></span>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+
+    function select(tab) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        var panel = document.getElementById(t.getAttribute('aria-controls'));
+        panel.classList.toggle('is-active', on);
+        panel.hidden = !on;
+      });
+    }
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { select(tab); });
+      // Left/Right arrow navigation between tabs.
+      tab.addEventListener('keydown', function (e) {
+        var dir = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!dir) return;
+        e.preventDefault();
+        var next = tabs[(i + dir + tabs.length) % tabs.length];
+        select(next);
+        next.focus();
+      });
+    });
+  })();
+</script>
+</body>
+</html>
