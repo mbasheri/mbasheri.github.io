@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#FCFBF9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#FCFBF9;                  /* plain near-white */
@@ -16,6 +16,11 @@
     --muted:#847F88;                  /* quiet gray */
     --hair:rgba(26,23,32,.10);        /* faint hairline */
     --font:"Bodoni Moda",Didot,"Times New Roman",serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --code-str:#3E7C8A;               /* muted teal-blue string literal */
+    --cursor:#8A2B2B;                 /* maroon terminal cursor */
+    --olive:#7C7660;                  /* muted olive nav */
+    --olive-dk:#514C36;               /* darker olive on hover/active */
     --pad:clamp(1.5rem,5vw,3rem);
     --ease:cubic-bezier(.22,.68,.28,1);
   }
@@ -35,33 +40,49 @@
   ::selection{background:rgba(26,23,32,.1)}
   :focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
 
-  /* ── fixed thin top nav ──────────────────────────── */
+  /* ── fixed thin top header (print-statement wordmark) ── */
   .nav{
     position:fixed;top:0;left:0;right:0;z-index:20;
-    display:flex;align-items:center;justify-content:space-between;
-    gap:1.5rem;
-    height:4rem;
-    padding:0 var(--pad);
+    display:flex;justify-content:flex-end;
+    padding:.85rem var(--pad);
     background:var(--paper);
     border-bottom:1px solid var(--hair);
   }
-  .wordmark{font-size:1.02rem;letter-spacing:.02em}
-  .nav-links{display:flex;gap:clamp(1.1rem,3vw,2rem)}
+  .header-inner{display:flex;flex-direction:column;align-items:flex-end;gap:.45rem}
+  .wordmark{
+    font-family:var(--mono);
+    font-size:.95rem;
+    font-weight:500;
+    color:var(--ink);           /* print( ) in near-black */
+    white-space:nowrap;
+  }
+  .wordmark .str{color:var(--code-str)}   /* "Manan Basheri" in muted teal */
+  .cursor{
+    display:inline-block;
+    width:2px;height:1.05em;
+    margin-left:2px;
+    background:var(--cursor);
+    vertical-align:-.16em;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{from,to{opacity:1}50%{opacity:0}}
+
+  .nav-links{display:flex;gap:1.5rem}
   .nav-links a{
-    font-size:.82rem;
-    letter-spacing:.16em;
-    text-transform:uppercase;
-    color:var(--muted);
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.02em;
+    color:var(--olive);
     padding-bottom:2px;
     border-bottom:1px solid transparent;
     transition:color .25s var(--ease),border-color .25s var(--ease);
   }
   .nav-links a:hover,
-  .nav-links a:focus-visible{color:var(--ink);border-color:var(--ink)}
+  .nav-links a:focus-visible{color:var(--olive-dk);border-color:var(--olive-dk)}
 
   /* ── content column ──────────────────────────────── */
   main{
-    padding:calc(4rem + clamp(4rem,12vh,7rem)) var(--pad) clamp(3rem,8vh,5rem);
+    padding:calc(4.75rem + clamp(4rem,12vh,7rem)) var(--pad) clamp(3rem,8vh,5rem);
     max-width:calc(38rem + var(--pad) * 2);
   }
   .col{max-width:38rem;animation:rise .8s var(--ease) both}
@@ -124,10 +145,9 @@
   @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
   @media (max-width:560px){
-    .nav{gap:1rem}
-    .nav-links{gap:1rem}
-    .nav-links a{font-size:.72rem;letter-spacing:.12em}
-    .wordmark{font-size:.95rem}
+    .wordmark{font-size:.86rem}
+    .nav-links{gap:1.25rem}
+    .nav-links a{font-size:.74rem;letter-spacing:.02em}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
@@ -139,11 +159,13 @@
 <body>
 
 <header class="nav">
-  <a class="wordmark" href="#top">Manan Basheri</a>
-  <nav class="nav-links" aria-label="Primary">
-    <a href="#projects">Projects</a>
-    <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
-  </nav>
+  <div class="header-inner">
+    <a class="wordmark" href="#top" aria-label="Manan Basheri — home">print(<span class="str">"Manan Basheri"</span>)<span class="cursor" aria-hidden="true"></span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#projects">Projects</a>
+      <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
+    </nav>
+  </div>
 </header>
 
 <main id="top">
