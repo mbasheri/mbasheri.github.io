@@ -4,26 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Manan Basheri</title>
-<meta name="description" content="Manan Basheri — in fieri.">
-<meta name="theme-color" content="#F6F4EF">
+<meta name="description" content="Manan Basheri — undergraduate at the University of Waterloo studying Accounting, Finance, and Data Analytics.">
+<meta name="theme-color" content="#FCFBF9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F6F4EF;                    /* warm near-white page */
-    --ink:#17141A;                      /* near-black text on paper */
-    --ink-soft:#6B6670;                 /* muted text on paper */
-    --block:#0B0A0C;                    /* the one dark content block */
-    --block-ink:#F3EFE9;                /* off-white inside the block */
-    --block-soft:#A7A1A4;               /* muted inside the block */
-    --accent:#5FB8CC;                   /* cyan-blue — pops on the dark block */
-    --accent-ink:#2E86A0;               /* deeper cyan — legible on the white page */
-    --hair:rgba(23,20,26,.14);          /* dividers on paper */
-    --block-hair:rgba(243,239,233,.16); /* dividers inside the block */
-    --ease:cubic-bezier(.22,.68,.28,1);
-    --nav-h:4.75rem;
+    --paper:#FCFBF9;                  /* plain near-white */
+    --ink:#1A1720;                    /* near-black text */
+    --muted:#847F88;                  /* quiet gray */
+    --hair:rgba(26,23,32,.10);        /* faint hairline */
     --font:"Bodoni Moda",Didot,"Times New Roman",serif;
+    --pad:clamp(1.5rem,5vw,3rem);
+    --ease:cubic-bezier(.22,.68,.28,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -31,185 +25,113 @@
     background:var(--paper);
     color:var(--ink);
     font-family:var(--font);
-    font-size:clamp(17px,1.15vw,19px);
-    line-height:1.6;
-    min-height:100vh;
+    font-size:clamp(17px,1.1vw,18.5px);
+    line-height:1.75;
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
+    min-height:100vh;
   }
   a{color:inherit;text-decoration:none}
-  ::selection{background:var(--accent);color:#0B0A0C}
-  :focus-visible{outline:2px solid var(--accent-ink);outline-offset:4px;border-radius:2px}
+  ::selection{background:rgba(26,23,32,.1)}
+  :focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
 
-  /* ── fixed top nav ───────────────────────────────── */
+  /* ── fixed thin top nav ──────────────────────────── */
   .nav{
     position:fixed;top:0;left:0;right:0;z-index:20;
-    height:var(--nav-h);
     display:flex;align-items:center;justify-content:space-between;
-    padding:0 clamp(1.25rem,4vw,2.75rem);
+    gap:1.5rem;
+    height:4rem;
+    padding:0 var(--pad);
     background:var(--paper);
+    border-bottom:1px solid var(--hair);
   }
-  .wordmark{
-    font-size:1.06rem;
-    font-weight:500;
-    letter-spacing:.01em;
-    white-space:nowrap;
-  }
-  .nav-links{display:flex;align-items:center;gap:clamp(1.1rem,2.6vw,2.1rem)}
+  .wordmark{font-size:1.02rem;letter-spacing:.02em}
+  .nav-links{display:flex;gap:clamp(1.1rem,3vw,2rem)}
   .nav-links a{
-    position:relative;
     font-size:.82rem;
-    font-weight:500;
-    letter-spacing:.2em;
+    letter-spacing:.16em;
     text-transform:uppercase;
-    color:var(--ink);
-    transition:color .25s var(--ease);
+    color:var(--muted);
+    padding-bottom:2px;
+    border-bottom:1px solid transparent;
+    transition:color .25s var(--ease),border-color .25s var(--ease);
   }
-  .nav-links a::after{
-    content:"";position:absolute;left:0;right:0;bottom:-.4em;height:1px;
-    background:var(--accent-ink);transform:scaleX(0);transform-origin:left;
-    transition:transform .3s var(--ease);
-  }
-  .nav-links a:hover{color:var(--accent-ink)}
-  .nav-links a:hover::after{transform:scaleX(1)}
+  .nav-links a:hover,
+  .nav-links a:focus-visible{color:var(--ink);border-color:var(--ink)}
 
-  main{padding-top:var(--nav-h)}
+  /* ── content column ──────────────────────────────── */
+  main{
+    padding:calc(4rem + clamp(4rem,12vh,7rem)) var(--pad) clamp(3rem,8vh,5rem);
+    max-width:calc(38rem + var(--pad) * 2);
+  }
+  .col{max-width:38rem;animation:rise .8s var(--ease) both}
 
-  /* ── hero (upper white area) ─────────────────────── */
-  .hero{
-    min-height:52vh;
-    display:flex;flex-direction:column;justify-content:center;align-items:center;
-    text-align:center;
-    padding:clamp(2.5rem,7vh,5rem) clamp(1.25rem,4vw,2.75rem) clamp(1.5rem,4vh,3rem);
-  }
-  h1{
-    font-weight:400;
-    font-optical-sizing:auto;
-    font-size:clamp(3.1rem,8.6vw,7.5rem);
-    line-height:1.02;
-    letter-spacing:.005em;
-    color:var(--ink);
-  }
-  .fieri{
-    font-style:italic;
-    font-weight:400;
-    font-size:clamp(1.3rem,2.7vw,1.7rem);
-    letter-spacing:.01em;
-    color:var(--ink-soft);
-    margin-top:clamp(.9rem,2.2vh,1.5rem);
-  }
+  .bio p{margin-bottom:1.35rem}
+  .bio p:last-child{margin-bottom:0}
 
-  /* ── the one dark content block (lower half) ─────── */
-  .work{
-    padding:clamp(1rem,3vh,2.5rem) clamp(1.25rem,4vw,2.75rem) clamp(3rem,8vh,6rem);
-    display:flex;justify-content:center;
+  /* social / contact icons near the bottom of the bio */
+  .social{
+    display:flex;align-items:center;gap:1.4rem;
+    margin-top:2.4rem;
   }
-  .block{
-    width:100%;max-width:60rem;
-    background:var(--block);
-    color:var(--block-ink);
-    border-radius:22px;
-    padding:clamp(1.75rem,4.5vw,3.5rem);
-    box-shadow:0 40px 90px -40px rgba(11,10,12,.55);
+  .social a{
+    display:inline-flex;color:var(--muted);
+    transition:color .25s var(--ease),transform .25s var(--ease);
   }
+  .social a:hover,.social a:focus-visible{color:var(--ink)}
+  .social svg{width:20px;height:20px;display:block}
 
-  .carousel{display:flex;flex-direction:column;gap:clamp(1.5rem,4vw,2.5rem)}
-  .stage{overflow:hidden}
-  .track{display:flex;transition:transform .5s var(--ease)}
-  .card{flex:0 0 100%;min-width:0}
-
-  .card-top{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem}
-  .card h3{
-    font-weight:500;
-    font-size:clamp(2rem,4.2vw,2.7rem);
-    line-height:1.08;
-    letter-spacing:.005em;
+  /* ── projects ────────────────────────────────────── */
+  .projects{margin-top:clamp(3.5rem,9vh,5.5rem)}
+  .label{
+    font-size:.78rem;font-weight:500;
+    letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:1.6rem;
   }
-  .status{
-    margin-left:auto;
-    display:inline-flex;align-items:center;gap:.5rem;
-    font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--block-soft);
-    border:1px solid var(--block-hair);border-radius:999px;
-    padding:.32rem .8rem;white-space:nowrap;
+  .proj{margin-bottom:1.8rem}
+  .proj:last-child{margin-bottom:0}
+  .proj-name{
+    font-size:1.28rem;
+    display:inline-flex;align-items:center;gap:.4rem;
+    border-bottom:1px solid var(--hair);
+    padding-bottom:1px;
+    transition:border-color .25s var(--ease);
   }
-  .status::before{
-    content:"";width:6px;height:6px;border-radius:50%;
-    background:var(--accent);box-shadow:0 0 0 3px rgba(95,184,204,.2);
+  .proj-name .arw{font-size:.9em;color:var(--muted);transition:transform .25s var(--ease),color .25s var(--ease)}
+  .proj-name:hover{border-color:var(--ink)}
+  .proj-name:hover .arw{color:var(--ink);transform:translate(2px,-2px)}
+  .proj-desc{
+    margin-top:.5rem;
+    color:var(--muted);
+    max-width:34rem;
+    line-height:1.65;
   }
-  .card p{
-    font-size:clamp(1.08rem,1.5vw,1.22rem);
-    line-height:1.6;
-    color:#D6D0CB;
-    max-width:52ch;
-  }
-  .meta{margin-top:1.6rem;display:flex;flex-wrap:wrap;gap:.5rem}
-  .tag{
-    font-size:.92rem;letter-spacing:.02em;
-    color:var(--block-soft);
-    border:1px solid var(--block-hair);border-radius:999px;
-    padding:.24rem .85rem;
-  }
-  .out{
-    display:inline-flex;align-items:center;gap:.5rem;
-    margin-top:1.9rem;
-    font-size:1.06rem;color:var(--accent);
-    border-bottom:1px solid transparent;padding-bottom:2px;
-    transition:border-color .3s var(--ease),gap .3s var(--ease);
-  }
-  .out .arw{transition:transform .3s var(--ease)}
-  .out:hover{border-color:var(--accent)}
-  .out:hover .arw{transform:translate(3px,-2px)}
-
-  /* carousel controls */
-  .controls{
-    display:flex;align-items:center;justify-content:space-between;
-    border-top:1px solid var(--block-hair);padding-top:clamp(1.1rem,3vw,1.6rem);
-  }
-  .counter{
-    font-size:.9rem;letter-spacing:.22em;color:var(--block-soft);
-    font-variant-numeric:tabular-nums;
-  }
-  .arrows{display:flex;gap:.5rem}
-  .arrow{
-    width:2.9rem;height:2.9rem;border-radius:50%;
-    display:grid;place-items:center;
-    background:none;border:1px solid var(--block-hair);
-    color:var(--block-ink);font-family:var(--font);font-size:1.5rem;line-height:1;
-    cursor:pointer;
-    transition:color .25s var(--ease),border-color .25s var(--ease),background .25s var(--ease);
-  }
-  .arrow span{transform:translateY(-1px)}
-  .arrow:hover{color:var(--accent);border-color:var(--accent)}
-  .arrow:disabled{opacity:.32;cursor:default}
-  .arrow:disabled:hover{color:var(--block-ink);border-color:var(--block-hair)}
 
   /* ── footer ──────────────────────────────────────── */
   footer{
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
-    padding:1.75rem clamp(1.25rem,4vw,2.75rem) 2.25rem;
+    margin-top:clamp(4rem,11vh,7rem);
+    padding-top:1.5rem;
     border-top:1px solid var(--hair);
-    font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--ink-soft);
+    font-size:.82rem;
+    letter-spacing:.04em;
+    color:var(--muted);
+    line-height:1.9;
   }
+  footer a{border-bottom:1px solid transparent;transition:color .25s var(--ease),border-color .25s var(--ease)}
+  footer a:hover{color:var(--ink);border-color:var(--ink)}
 
-  /* ── motion ──────────────────────────────────────── */
-  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-  .reveal{opacity:0;animation:rise .8s var(--ease) forwards}
-  .reveal.d1{animation-delay:.05s}
-  .reveal.d2{animation-delay:.16s}
-  .reveal.d3{animation-delay:.3s}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
-  @media (max-width:600px){
-    .wordmark{display:none}
-    .nav{justify-content:center}
-    .nav-links{gap:clamp(.9rem,4.2vw,1.4rem)}
-    .nav-links a{font-size:.72rem;letter-spacing:.13em}
-    .status{margin-left:0;order:3}
+  @media (max-width:560px){
+    .nav{gap:1rem}
+    .nav-links{gap:1rem}
+    .nav-links a{font-size:.72rem;letter-spacing:.12em}
+    .wordmark{font-size:.95rem}
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
-    .reveal{animation:none;opacity:1;transform:none}
+    .col{animation:none}
     *{transition:none!important}
   }
 </style>
@@ -219,85 +141,56 @@
 <header class="nav">
   <a class="wordmark" href="#top">Manan Basheri</a>
   <nav class="nav-links" aria-label="Primary">
-    <a href="mailto:mbasheri@uwaterloo.ca">Email</a>
-    <a href="https://www.linkedin.com/in/mananbasheri" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://github.com/mbasheri" target="_blank" rel="noopener">GitHub</a>
-    <a href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    <a href="#projects">Projects</a>
+    <a href="resume.pdf" target="_blank" rel="noopener">Resume</a>
   </nav>
 </header>
 
 <main id="top">
+  <div class="col">
 
-  <section class="hero">
-    <h1 class="reveal d1">Manan Basheri</h1>
-    <p class="fieri reveal d2">in fieri</p>
-  </section>
-
-  <section class="work">
-    <div class="block reveal d3">
-      <div class="carousel">
-        <div class="stage">
-          <div class="track" id="track">
-
-            <article class="card">
-              <div class="card-top">
-                <h3>Plateau</h3>
-                <span class="status">In progress</span>
-              </div>
-              <p>Fitness apps chart your progress and stop there — when a lift stalls, you get a flat line and no explanation. Plateau reads the training log alongside sleep, stress, and bodyweight, then works out the likely reason the lift stopped moving: not enough stimulus, accumulated fatigue, stale programming, or under-eating. It returns a written diagnosis and a specific change to make, not just a flag.</p>
-              <div class="meta">
-                <span class="tag">Product</span><span class="tag">Rules engine</span><span class="tag">React</span><span class="tag">Python</span>
-              </div>
-              <a class="out" href="https://plateau-dx.onrender.com" target="_blank" rel="noopener">Read the writeup <span class="arw">↗</span></a>
-            </article>
-
-          </div>
-        </div>
-
-        <div class="controls">
-          <span class="counter" id="counter">1 / 1</span>
-          <div class="arrows">
-            <button class="arrow" id="prev" data-dir="-1" aria-label="Previous project"><span>‹</span></button>
-            <button class="arrow" id="next" data-dir="1" aria-label="Next project"><span>›</span></button>
-          </div>
-        </div>
-      </div>
+    <div class="bio">
+      <p>I'm an undergraduate at the University of Waterloo, studying Accounting, Finance, and Data Analytics.</p>
+      <p>Most of my time goes to financial analysis and the data work around it — pulling numbers together, finding where they disagree, and building small tools when a spreadsheet stops being enough. I like problems where the answer depends on getting the details right.</p>
     </div>
-  </section>
 
-  <footer>
-    <span>Toronto, Ontario</span>
-    <span>© 2026</span>
-  </footer>
+    <div class="social" id="links">
+      <a href="https://www.linkedin.com/in/mananbasheri" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+      </a>
+      <a href="https://github.com/mbasheri" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.95 0-1.32.47-2.39 1.24-3.23-.12-.3-.54-1.53.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.23 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.83.58A12 12 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z"/></svg>
+      </a>
+      <a href="mailto:mbasheri@uwaterloo.ca" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.6 6.6 8.4 6.4 8.4-6.4"/></svg>
+      </a>
+      <a href="resume.pdf" target="_blank" rel="noopener" aria-label="Résumé (PDF)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2.5h8L18 6.5v15H6z"/><path d="M14 2.5v4h4"/><path d="M9 12h6M9 16h6M9 8h2"/></svg>
+      </a>
+    </div>
 
+    <section class="projects" id="projects">
+      <h2 class="label">Projects</h2>
+
+      <div class="proj">
+        <a class="proj-name" href="https://candor-ub2e.vercel.app" target="_blank" rel="noopener">Candor <span class="arw">↗</span></a>
+        <p class="proj-desc">A citation-backed reference app for clear, sourced answers on nicotine, THC, alcohol, and prescription drugs.</p>
+      </div>
+
+      <div class="proj">
+        <a class="proj-name" href="https://plateau-dx.vercel.app" target="_blank" rel="noopener">Plateau·Dx <span class="arw">↗</span></a>
+        <p class="proj-desc">Reads a training log alongside sleep, stress, and bodyweight to diagnose why a lift has stalled — and what to change.</p>
+      </div>
+
+    </section>
+
+    <footer>
+      <div><a href="mailto:mbasheri@uwaterloo.ca">mbasheri@uwaterloo.ca</a></div>
+      <div>© 2026 Manan Basheri</div>
+    </footer>
+
+  </div>
 </main>
 
-<script>
-  (function () {
-    var track = document.getElementById('track');
-    var cards = track ? track.children : [];
-    var total = cards.length;
-    var prev = document.getElementById('prev');
-    var next = document.getElementById('next');
-    var counter = document.getElementById('counter');
-    var i = 0;
-
-    function render() {
-      track.style.transform = 'translateX(' + (-i * 100) + '%)';
-      counter.textContent = (i + 1) + ' / ' + total;
-    }
-
-    // Looping carousel — arrows stay live (and show the accent on hover)
-    // even with a single project, and handle more automatically.
-    function go(n) {
-      i = (i + n + total) % total;
-      render();
-    }
-
-    prev.addEventListener('click', function () { go(-1); });
-    next.addEventListener('click', function () { go(1); });
-    render();
-  })();
-</script>
 </body>
 </html>
